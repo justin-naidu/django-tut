@@ -4,9 +4,8 @@ from .models import Question, Choice
 
 def index(request):
 	questions = Question.objects.order_by('-pub_date')[:5]
-
-	output = ' , '.join([p.question_text for p in questions])
-	return HttpResponse(output)
+	context = {'questions': questions}
+	return render(request, 'polls/index.html', context)
 
 def detail(request, question_id):
 	try:
